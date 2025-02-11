@@ -7,7 +7,7 @@ import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
 import { logMsg } from 'util/logger';
 
-const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || true;
+const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 
 /**
  *
