@@ -5,6 +5,9 @@ import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
 import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
+import { logMsg } from 'util/logger';
+
+const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 
 /**
  *
@@ -144,6 +147,18 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       decisionAids = { errors };
     }
 
+    // replace with actual logging data when ready from CQL 
+    // output otherResources as a temporary stand-in
+    console.timeEnd('Apply CDS');
+
+    if (LOGGER_ENABLED){
+      logMsg({
+        timeRequestSent: new Date(),
+        patientReference: patientReference,
+        payload: [patientInfo, decisionAids]
+      });
+    }
+    
     if (thereAreOutputs) {
       if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
@@ -166,7 +181,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       patientReference
     }
 
-    console.timeEnd('Apply CDS');
     console.log('CDS output:', output);
     setIsLoadingCdsData(false);
     setOutput(output);
