@@ -1,52 +1,68 @@
-import AverageRisk from './bc/AverageRisk.json';
-import AverageRiskActions from './bc/AverageRiskActions.json';
-import AverageRiskEvents from './bc/AverageRiskEvents.json';
-import BCSMCommonFunctions from './bc/BCSMCommonFunctions.json';
-import CDSConnectCommonsforFHIRv401 from './bc/CDSConnectCommonsforFHIRv401.json';
-import CSMCommonFunctions from './bc/CSMCommonFunctions.json';
-import DataElements from './bc/DataElements.json';
-import DecisionToScreen from './bc/DecisionToScreen.json';
-import DecisionToScreenActions from './bc/DecisionToScreenActions.json';
-import DecisionToScreenEvents from './bc/DecisionToScreenEvents.json';
-import FHIRHelpers from './bc/FHIRHelpers-4.0.1.json';
-import FollowupScreeningResult from './bc/FollowupScreeningResult.json';
-import FollowupScreeningResultActions from './bc/FollowupScreeningResultActions.json';
-import FollowupScreeningResultEvents from './bc/FollowupScreeningResultEvents.json';
-import GeneticRiskReferral from './bc/GeneticRiskReferral.json';
-import GeneticRiskReferralActions from './bc/GeneticRiskReferralActions.json';
-import GeneticRiskReferralEvents from './bc/GeneticRiskReferralEvents.json';
-import HighRiskExclusions from './bc/HighRiskExclusions.json';
-import HighRiskExclusionsActions from './bc/HighRiskExclusionsActions.json';
-import HighRiskExclusionsEvents from './bc/HighRiskExclusionsEvents.json';
-import HighRiskReferral from './bc/HighRiskReferral.json';
-import HighRiskReferralActions from './bc/HighRiskReferralActions.json';
-import HighRiskReferralEvents from './bc/HighRiskReferralEvents.json';
-import Hospice from './bc/Hospice.json';
-import PertinentHistory from './bc/PertinentHistory.json';
-import PrimaryScreeningDecision from './bc/PrimaryScreeningDecision.json';
-import ScreeningDue from './bc/ScreeningDue.json';
-import ScreeningDueEvents from './bc/ScreeningDueEvents.json';
-import ScreeningEligible from './bc/ScreeningEligible.json';
-import ScreeningEligibleActions from './bc/ScreeningEligibleActions.json';
-import ScreeningEligibleEvents from './bc/ScreeningEligibleEvents.json';
-import ScreeningTestIncomplete from './bc/ScreeningTestIncomplete.json';
-import ScreeningTestIncompleteEvents from './bc/ScreeningTestIncompleteEvents.json';
-import SpecialPopulations from './bc/SpecialPopulations.json';
-import SpecialPopulationsActions from './bc/SpecialPopulationsActions.json';
-import SpecialPopulationsEvents from './bc/SpecialPopulationsEvents.json';
+import CDSConnectCommonsforFHIRv401 from './crc/CDSConnectCommonsforFHIRv401.json';
+import CRCSMCommonFunctions from './crc/CRCSMCommonFunctions.json';
+import CSMCommonFunctions from './crc/CSMCommonFunctions.json';
+import DataElements from './crc/DataElements.json';
+import DecisionToScreen from './crc/DecisionToScreen.json';
+import DecisionToScreenActions from './crc/DecisionToScreenActions.json';
+import DecisionToScreenEvents from './crc/DecisionToScreenEvents.json';
+import DetermineNextDueDate from './crc/DetermineNextDueDate.json';
+import DetermineNextDueDateActions from './crc/DetermineNextDueDateActions.json';
+import DetermineNextDueDateEvents from './crc/DetermineNextDueDateEvents.json';
+import FHIRHelpers from './crc/FHIRHelpers-4.0.1.json';
+import FollowUp from './crc/FollowUp.json';
+import FollowUpActions from './crc/FollowUpActions.json';
+import FollowUpEvents from './crc/FollowUpEvents.json';
+import HighLevel from './crc/HighLevel.json';
+import Hospice from './crc/Hospice.json';
+import IncreasedRiskExclusions from './crc/IncreasedRiskExclusions.json';
+import IncreasedRiskExclusionsActions from './crc/IncreasedRiskExclusionsActions.json';
+import IncreasedRiskExclusionsEvents from './crc/IncreasedRiskExclusionsEvents.json';
+import PertinentHistory from './crc/PertinentHistory.json';
+import PrimaryScreeningDecision from './crc/PrimaryScreeningDecision.json';
+import ScreeningDue from './crc/ScreeningDue.json';
+import ScreeningDueEvents from './crc/ScreeningDueEvents.json';
+import ScreeningEligible from './crc/ScreeningEligible.json';
+import ScreeningEligibleActions from './crc/ScreeningEligibleActions.json';
+import ScreeningEligibleEvents from './crc/ScreeningEligibleEvents.json';
+import ScreeningIncomplete from './crc/ScreeningIncomplete.json';
+import ScreeningIncompleteEvents from './crc/ScreeningIncompleteEvents.json';
+import USPSTFAvgRisk from './crc/USPSTFAvgRisk.json';
+import USPSTFAvgRiskActions from './crc/USPSTFAvgRiskActions.json';
+import USPSTFAvgRiskEvents from './crc/USPSTFAvgRiskEvents.json';
+
 
 const elmJsonDependencyArray = [
-    AverageRisk, AverageRiskActions, AverageRiskEvents, BCSMCommonFunctions, 
-    CDSConnectCommonsforFHIRv401, CSMCommonFunctions, DataElements, DecisionToScreen, 
-    DecisionToScreenActions, DecisionToScreenEvents, FHIRHelpers, FollowupScreeningResult, 
-    FollowupScreeningResultActions, FollowupScreeningResultEvents, GeneticRiskReferral, 
-    GeneticRiskReferralActions, GeneticRiskReferralEvents, HighRiskExclusions, 
-    HighRiskExclusionsActions, HighRiskExclusionsEvents, HighRiskReferral, 
-    HighRiskReferralActions, HighRiskReferralEvents, Hospice, PertinentHistory, 
-    PrimaryScreeningDecision, ScreeningDue, ScreeningDueEvents, ScreeningEligible, 
-    ScreeningEligibleActions, ScreeningEligibleEvents, ScreeningTestIncomplete, 
-    ScreeningTestIncompleteEvents, SpecialPopulations, SpecialPopulationsActions, 
-    SpecialPopulationsEvents
+  CDSConnectCommonsforFHIRv401,
+  CRCSMCommonFunctions,
+  CSMCommonFunctions,
+  DataElements,
+  DecisionToScreen,
+  DecisionToScreenActions,
+  DecisionToScreenEvents,
+  DetermineNextDueDate,
+  DetermineNextDueDateActions,
+  DetermineNextDueDateEvents,
+  FHIRHelpers,
+  FollowUp,
+  FollowUpActions,
+  FollowUpEvents,
+  HighLevel,
+  Hospice,
+  IncreasedRiskExclusions,
+  IncreasedRiskExclusionsActions,
+  IncreasedRiskExclusionsEvents,
+  PertinentHistory,
+  PrimaryScreeningDecision,
+  ScreeningDue,
+  ScreeningDueEvents,
+  ScreeningEligible,
+  ScreeningEligibleActions,
+  ScreeningEligibleEvents,
+  ScreeningIncomplete,
+  ScreeningIncompleteEvents,
+  USPSTFAvgRisk,
+  USPSTFAvgRiskActions,
+  USPSTFAvgRiskEvents
 ];
 
 // Reformat ELM JSON value set references to match what is expected by the 

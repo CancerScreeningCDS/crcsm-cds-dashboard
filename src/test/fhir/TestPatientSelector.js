@@ -1,30 +1,35 @@
-import logo from 'assets/bcsm-tulip.svg';
+import logo from 'assets/ccsm-tulip.svg';
 import './TestPatientSelector.scss';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import screeningData from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision.json';
-import geneticRiskData from './bundles/GeneticRiskReferral_v1.0.0/GeneticRiskReferral.json'
+import increasedRiskData from './bundles/IncreasedRiskExclusions_v1.0.0/IncreasedRiskExclusions.json';
 import highRiskData from './bundles/HighRiskReferral_v1.0.0/HighRiskReferral.json'
+import USPSTFAvgRiskData from './bundles/USPSTFAvgRisk/USPSTFAvgRisk.json'
+import screeningEligibleData from './bundles/ScreeningEligible_v1.0.0/ScreeningEligible.json';
+import primaryScreeningDecisionData from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision.json'
+import followUpData from './bundles/FollowUp_v1.0.0/FollowUp.json'
 
-const screeningPad = 1;
+const primaryScreenPad = 1;
 
-const geneticRiskPad = screeningPad + screeningData.length;
+const increasedRiskPad = primaryScreenPad + primaryScreeningDecisionData.length;
 
-const highRiskPad = geneticRiskPad + geneticRiskData.length;
+const followUpPad = increasedRiskPad + increasedRiskData.length;
+const USPSTFAvgRiskPad = followUpPad + followUpData.length;
+
+const screeningEligiglePad = USPSTFAvgRiskPad + USPSTFAvgRiskData.length;
 
 export function TestPatientSelector() {
   return (
     <div>
       <div className="hero">
-        <img src={logo} alt="Breast Cancer CDS Tulip logo"/>
-        <h1 className="public-sans-900">BCSM-CDS</h1>
-        <h2 className="subtitle">Breast Cancer Screening and Management<br/>Clinical Decision Support</h2>
+        <img src={logo} alt="Colorectal Cancer CDS Tulip logo"/>
+        <h1 className="public-sans-900">CRCSM-CDS</h1>
+        <h2 className="subtitle">Colorectal Cancer Screening and Management<br/>Clinical Decision Support</h2>
       </div>
 
       <h3>FHIR Test Patients</h3>
-      <b>Authors:</b> Neelima Karipineni (<a href="mailto:nkaripineni@mitre.org">nkaripineni@mitre.org</a>), 
-      Rute Martins (<a href="mailto:anarute@mitre.org">anarute@mitre.org</a>)<br/>
+      <b>Authors:</b> Rute Martins (<a href="mailto:anarute@mitre.org">anarute@mitre.org</a>)<br/>
       <b>Last Updated:</b> Feb 17, 2025<br/>
 
       <div className="sitemap">
@@ -43,19 +48,24 @@ export function TestPatientSelector() {
 
           <tbody>
             <tr className="group">
-              <td colSpan="6">Primary Decision to Screen</td>
+              <td colSpan="6">Primary Screening Decision</td>
             </tr>
-            { screeningData.map((rd,idx) => <IndexRow key={idx} index={screeningPad+idx} rowData={rd} library="PrimaryScreeningDecision" />) }
-            
-            <tr className="group">
-              <td colSpan="6">Genetic Risk Referral</td>
-            </tr>
-            { geneticRiskData.map((rd,idx) => <IndexRow key={idx} index={geneticRiskPad+idx} rowData={rd} library="GeneticRiskReferral" />) }
+            { primaryScreeningDecisionData.map((rd,idx) => <IndexRow key={idx} index={primaryScreenPad+idx} rowData={rd} library="PrimaryScreeningDecision" />) }
 
             <tr className="group">
-              <td colSpan="6">High Risk Referral</td>
+              <td colSpan="6">Increased Risk Exclusions</td>
             </tr>
-            { highRiskData.map((rd,idx) => <IndexRow key={idx} index={highRiskPad+idx} rowData={rd} library="HighRiskReferral" />) }
+            { increasedRiskData.map((rd,idx) => <IndexRow key={idx} index={increasedRiskPad+idx} rowData={rd} library="IncreasedRiskExclusions" />) }
+
+            <tr className="group">
+              <td colSpan="6">Follow-Up Flow</td>
+            </tr>
+            { followUpData.map((rd,idx) => <IndexRow key={idx} index={followUpPad+idx} rowData={rd} library="FollowUp" />) }
+  
+             <tr className="group">
+              <td colSpan="6">USPSTF Average Risk</td>
+            </tr>
+            { USPSTFAvgRiskData.map((rd,idx) => <IndexRow key={idx} index={USPSTFAvgRiskPad+idx} rowData={rd} library="USPSTFAvgRisk" />) }
 
           </tbody>
         </Table>

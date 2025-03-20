@@ -1,0 +1,34 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "retired",
+  "content": "complete",
+  "name": "CRADS2023CodeSystem",
+  "id": "c-rads-2023-code-system",
+  "title": "CT Colonography Reporting and Data System (C-RADS)",
+  "description": "Codes for C-RADS v2023 colorectal finding categories.",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/c-rads-2023-code-system",
+  "concept": [
+    {
+      "code": "C0",
+      "display": "C-RADS Category 0 - Inadequate study/awaiting prior comparisons"
+    },
+    {
+      "code": "C1",
+      "display": "C-RADS Category 1 - Normal colon or benign lesion: continue routine screening"
+    },
+    {
+      "code": "C2",
+      "display": "C-RADS Category 2 - Intermediate polyp or indeterminate finding: surveillance or colonoscopy recommended"
+    },
+    {
+      "code": "C3",
+      "display": "C-RADS Category 3 - Polyp, possibly advanced adenoma: follow-up colonoscopy recommended"
+    },
+    {
+      "code": "C4",
+      "display": "C-RADS Category 4 - Colonic mass, likely malignant: surgical consultation recommended"
+    }
+  ],
+  "version": "v2005",
+  "count": 5
+}

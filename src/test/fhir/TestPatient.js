@@ -15,7 +15,6 @@ import { testData } from './patientData.js';
 export function TestPatient() {
   let params = useParams();
   const [patientData, setPatientData] = useState([]);
-  
   let [searchParams, setSearchParams] = useSearchParams();
   const library = searchParams.get("library")
 
@@ -23,6 +22,7 @@ export function TestPatient() {
     isImmunosuppressed: false,
     isPregnant: false,
     isPregnantConcerned: false,
+    hasGeneticMarkers: false,
     isSymptomatic: false,
     isToggleChanged: false
   });

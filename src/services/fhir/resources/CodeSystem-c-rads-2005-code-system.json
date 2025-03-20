@@ -1,0 +1,38 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "active",
+  "content": "complete",
+  "name": "CRADS2005CodeSystem",
+  "id": "c-rads-2005-code-system",
+  "title": "CT Colonography Reporting and Data System (C-RADS)",
+  "description": "Codes for C-RADS v2005 colorectal finding categories.",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/c-rads-2005-code-system",
+  "concept": [
+    {
+      "code": "C0",
+      "display": "C-RADS Category 0 - Inadequate study/awaiting prior comparisons"
+    },
+    {
+      "code": "C1",
+      "display": "C-RADS Category 1 - Normal colon or benign lesion"
+    },
+    {
+      "code": "C2a",
+      "display": "C-RADS Category 2a - Intermediate polyp or indeterminate finding"
+    },
+    {
+      "code": "C2b",
+      "display": "C-RADS Category 2b - Likely benign diverticular finding"
+    },
+    {
+      "code": "C3",
+      "display": "C-RADS Category 3 - Polyp, possibly advanced adenoma"
+    },
+    {
+      "code": "C4",
+      "display": "C-RADS Category 4 - Colonic mass, likely malignant"
+    }
+  ],
+  "version": "v2023",
+  "count": 6
+}

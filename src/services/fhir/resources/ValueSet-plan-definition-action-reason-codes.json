@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "PlanDefinitionActionReasonCodes",
+  "id": "plan-definition-action-reason-codes",
+  "title": "Plan Definition Action Reason Codes",
+  "description": "This value set includes action reason codes for Plan Definitions within this implementation guide.",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/ValueSet/plan-definition-action-reason-codes",
+  "experimental": true,
+  "compose": {
+    "include": [
+      {
+        "system": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/plan-definition-action-reason-code-system"
+      }
+    ]
+  }
+}

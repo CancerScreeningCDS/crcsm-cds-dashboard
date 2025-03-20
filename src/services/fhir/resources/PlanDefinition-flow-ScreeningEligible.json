@@ -1,0 +1,177 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "flow-ScreeningEligible",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
+    ]
+  },
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/PlanDefinition/flow-ScreeningEligible",
+  "title": "Screening Eligible",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    }
+  ],
+  "author": [
+    {
+      "name": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention."
+    }
+  ],
+  "editor": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "reviewer": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "endorser": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "library": [
+    "Library/ScreeningEligible|1.0.0"
+  ],
+  "action": [
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "code": [
+        {
+          "coding": [
+            {
+              "code": "eligible",
+              "system": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/plan-definition-action-code-system",
+              "display": "Eligible for screening"
+            }
+          ]
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CheckIsIncludedAndNotExcluded"
+          },
+          "kind": "applicability"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "IsScreeningEligible"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "id": "ScreeningEligible",
+      "title": "Screening Eligible",
+      "description": "Patient is eligible for screening",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/CommunicateEligible|1.0.0"
+    },
+    {
+      "code": [
+        {
+          "coding": [
+            {
+              "code": "noteligible",
+              "system": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/plan-definition-action-code-system",
+              "display": "Not eligible for screening"
+            }
+          ]
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CheckIsIncludedAndNotExcluded"
+          },
+          "kind": "applicability"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "IsNotScreeningEligible"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ScreeningEligibleReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        }
+      ],
+      "id": "Not Screening Eligible",
+      "title": "Not Screening Eligible",
+      "description": "Patient is not eligible for screening",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/CommunicateNotEligible|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "documentation",
+          "label": "Inclusions",
+          "display": "Error due to missing required data"
+        }
+      ],
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "encounter-start"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "MissingAgeOrBirthdate",
+            "reference": "Library/ScreeningEligible|1.0.0"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "id": "Screening Eligible Missing Data",
+      "title": "Screening Eligible Missing Data",
+      "description": "Top level action that defines missing data for inclusion and exclusion.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/Questionnaire/ScreeningEligibleQuestionnaire|1.0.0"
+    }
+  ],
+  "version": "1.0.0",
+  "date": "2025-02-28",
+  "status": "draft",
+  "experimental": true,
+  "publisher": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention.",
+  "copyright": "(C) 2025 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 24-2711. Distribution Unlimited. Unless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30123F17931.",
+  "approvalDate": "2025-02-28",
+  "lastReviewDate": "2025-02-28",
+  "name": "flow-ScreeningEligible",
+  "description": "Determines whether colorectal cancer screening is viable or appropriate for a patient, regardless of risk level.\n\nThis path can be used to ensure any clinical decision support tools do not provide recommendations when screening is not appropriate or clinically applicable.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  }
+}

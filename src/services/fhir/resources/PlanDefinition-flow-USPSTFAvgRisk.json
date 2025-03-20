@@ -1,0 +1,247 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "flow-USPSTFAvgRisk",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
+    ]
+  },
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/PlanDefinition/flow-USPSTFAvgRisk",
+  "title": "Average Risk",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    }
+  ],
+  "author": [
+    {
+      "name": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention."
+    }
+  ],
+  "editor": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "reviewer": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "endorser": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "library": [
+    "Library/USPSTFAvgRisk|1.0.0"
+  ],
+  "action": [
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsUSPSTFAvgRiskStartAt45"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "StartScreeningAt45YearsOld",
+      "title": "Start screening at 45 years old",
+      "description": "Patients at average risk for colorectal cancer should start screening at 45 years old.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsUSPSTFAvgRiskStartNow"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "StartScreening",
+      "title": "Start screening Now",
+      "description": "Start screening now. Patients at average risk for colorectal cancer should start screening at 45 years old.\n\nScreening strategies and intervals recommended for average risk patients include:\n* Colonoscopy every 10 years\n* High-sensitivity gFOBT or FIT every year\n* sDNA-FIT every 1 to 3 years\n* CT colonography every 5 years\n* Flexible sigmoidoscopy every 5 years\n* Flexible sigmoidoscopy every 10 years + FIT every year",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsUSPSTFAvgRiskNextDue"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "USPSTFAvgRiskTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "ContinueRoutineScreening",
+      "title": "Continue routine screening",
+      "description": "Continue routine screening.\n\nScreening strategies and intervals recommended for average risk patients include:\n* Colonoscopy every 10 years\n* High-sensitivity gFOBT or FIT every year\n* sDNA-FIT every 1 to 3 years\n* CT colonography every 5 years\n* Flexible sigmoidoscopy every 5 years\n* Flexible sigmoidoscopy every 10 years + FIT every year",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    }
+  ],
+  "version": "1.0.0",
+  "date": "2025-02-28",
+  "status": "draft",
+  "experimental": true,
+  "publisher": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention.",
+  "copyright": "(C) 2025 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 24-2711. Distribution Unlimited. Unless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30123F17931.",
+  "approvalDate": "2025-02-28",
+  "lastReviewDate": "2025-02-28",
+  "name": "flow-USPSTFAvgRisk",
+  "description": "Provides recommendations on the age to start and to stop screening, modalities, and screening intervals for average risk patients, based on U.S. Preventative Services Task Force (USPSTF). It also determines the next due date for screening for average risk patients, based on their age and screening history.\n\nThe path is intended for use with either individual patient alerts/flagging or for generating asynchronous reports on a cohort of patients in order to target outreach or escalation.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  }
+}

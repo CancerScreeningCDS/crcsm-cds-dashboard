@@ -1,31 +1,39 @@
-import JaniceMedford from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_JaniceMedford_fdr_breastca_age_45.json';
-import JosephineGreene from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_JosephineGreene-past-breast-pain-adh-biopsy.json';
-import JustineWallace from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_JustineWallace_brca1.json';
-import LindaNadler from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_LindaNadler-dcis.json';
-import MarionHenderson from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_MarionHenderson_avg_45_to_54.json';
-import NadiaWills from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_NadiaWills_palpable_breast_mass.json';
-import PatriciaLambert from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_PatriciaLambert_remission_lt_5_years.json';
+import PSD_SallySimpson from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_SallySimpson.json'
+import PSD_EduardElder from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_EduardElder.json'
+import PSD_ColinCarlson from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_ColinCarlson.json'
+import PSD_HankCarlson from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_HankCarlson.json'
+import PSD_HollyHereditary from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_HollyHereditary.json'
+import PSD_IsaacBrown from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_IsaacBrown.json'
+import PSD_FannyFamiglietti from './bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_FannyFamiglietti.json'
 
-import GR_JaniceMedford from './bundles/GeneticRiskReferral_v1.0.0/GeneticRiskReferral_JaniceMedford_fdr_breastca_age_45.json'
+//import IRE_ColinCarlson from './bundles/IncreasedRiskExclusions_v1.0.0/ColinCarlson.json'
+import IRE_PollyStuart from './bundles/IncreasedRiskExclusions_v1.0.0/IncreasedRiskExclusions_PollyStuart_HxPolyps.json'
+import IRE_HankCarlson from './bundles/IncreasedRiskExclusions_v1.0.0/IncreasedRiskExclusions_HankCarlson_HxCancer.json'
 
-import HR_JosephineGreene from './bundles/HighRiskReferral_v1.0.0/HighRiskReferral_JosephineGreene-past-breast-pain-adh-biopsy.json';
-import HR_JustineWallace from './bundles/HighRiskReferral_v1.0.0/HighRiskReferral_JustineWallace_brca1.json'
+import AvgRisk_StellaParker from './bundles/USPSTFAvgRisk/USPSTFAvgRisk_StellaParker.json'
+
+import FU_FranColette from './bundles/FollowUp_v1.0.0/FollowUp_FranColette.json'
+import FU_OllieOncken from './bundles/FollowUp_v1.0.0/FollowUp_OllieOncken.json'
+
 export const testOutput = {
+  IncreasedRiskExclusions: {
+    PollyStuart: IRE_PollyStuart,
+    HankCarlson: IRE_HankCarlson
+  },
+  FollowUp: {
+    FranColette: FU_FranColette,
+    OllieOncken: FU_OllieOncken
+  },
+  USPSTFAvgRisk: {
+    StellaParker: AvgRisk_StellaParker
+  },
   PrimaryScreeningDecision: {
-    JaniceMedford : JaniceMedford,
-    JosephineGreene : JosephineGreene,
-    JustineWallace : JustineWallace,
-    LindaNadler : LindaNadler,
-    MarionHenderson : MarionHenderson,
-    NadiaWills : NadiaWills,
-    PatriciaLambert : PatriciaLambert
-  },
-  HighRiskReferral: {
-    JosephineGreene : HR_JosephineGreene,
-    JustineWallace : HR_JustineWallace
-    
-  },
-  GeneticRiskReferral: {
-    JaniceMedford: GR_JaniceMedford
+    SallySimpson: PSD_SallySimpson,
+    EduardElder: PSD_EduardElder,
+    FannyFamiglietti: PSD_FannyFamiglietti,
+    ColinCarlson: PSD_ColinCarlson,
+    HankCarlson: PSD_HankCarlson,
+    HollyHereditary: PSD_HollyHereditary,
+    IsaacBrown: PSD_IsaacBrown    
   }
 }

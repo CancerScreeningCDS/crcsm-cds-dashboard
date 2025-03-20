@@ -1,0 +1,74 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "PlanDefinitionActionReasonCodeSystem",
+  "id": "plan-definition-action-reason-code-system",
+  "title": "Plan Definition Action Reason Code System",
+  "description": "Code representing plan definition action reason codes",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/plan-definition-action-reason-code-system",
+  "concept": [
+    {
+      "code": "eligibleforscreening",
+      "display": "Eligible for screening"
+    },
+    {
+      "code": "missingageorbirthdate",
+      "display": "Missing patient age in years or birth date"
+    },
+    {
+      "code": "currentcolorectalcancer",
+      "display": "Current colorectal cancer"
+    },
+    {
+      "code": "totalcolectomy",
+      "display": "Total colectomy"
+    },
+    {
+      "code": "diagtesting",
+      "display": "Diagnostic testing"
+    },
+    {
+      "code": "ageover86",
+      "display": "Age over 86 years"
+    },
+    {
+      "code": "lifeexp",
+      "display": "Reduced life expectancy indicator"
+    },
+    {
+      "code": "age76to86",
+      "display": "Age 76 to 86 years"
+    },
+    {
+      "code": "USPSTFaveragerisk",
+      "display": "USPSTF average risk"
+    },
+    {
+      "code": "negativescreening",
+      "display": "Non-colonoscopy colorectal cancer screening negative"
+    },
+    {
+      "code": "negativehighqualityscreening",
+      "display": "Negative or normal non-colonoscopy test with high-quality exam"
+    },
+    {
+      "code": "inconclusivescreening",
+      "display": "Inconclusive non-colonoscopy screening"
+    },
+    {
+      "code": "positiveabnormalscreening",
+      "display": "Positive or abnormal non-colonoscopy screening"
+    },
+    {
+      "code": "historyofprecancerouspolyps",
+      "display": "History of potentially precancerous polyps"
+    },
+    {
+      "code": "averagerisk",
+      "display": "At average risk for colorectal cancer"
+    }
+  ],
+  "experimental": true,
+  "count": 15
+}

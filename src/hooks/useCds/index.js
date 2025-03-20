@@ -5,17 +5,10 @@ import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
 import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
-import { logMsg } from 'util/logger';
-import { testData } from 'test/fhir/patientData';
-import { testOutput } from 'test/fhir/patientOutput';
-
-import hardCodeData from '../../test/fhir/bundles/PrimaryScreeningDecision_v1.0.0/PrimaryScreeningDecision_JaniceMedford_fdr_breastca_age_45.json'
-import patientDataJ from '../../test/fhir/bundles/patients/JaniceMedford_fdr_breastca_age_45.json'
 import cql, { Results } from 'cql-execution';
 import cqlfhir, { PatientSource } from 'cql-exec-fhir';
 import { initialzieCqlWorker } from 'cql-worker';
 
-const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 /**
  *
  * @param {Object[]} patientData
@@ -26,6 +19,7 @@ export const useCds = (patientData, toggleStatus, pathway) => {
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
   const [isPregnant, setIsPreganant] = useState(false);
+
   useEffect(() => {
     if (patientData.length === 0) {
       return;
@@ -58,15 +52,12 @@ export const useCds = (patientData, toggleStatus, pathway) => {
  * @param {function} setOutput
  */
 const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant, pathway) {
-  console.log('Starting applyCds()');
   console.time('Apply CDS');
-
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
-  const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
-  // TODO: Throw error if there is anything other than 1 patient resource
-  const patientId = patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0]
-  const patientReference = 'Patient/' + patientId;
   
+  const planDefinition = resolver('PlanDefinition/'+pathway)[0];
+  // TODO: Throw error if there is anything other than 1 patient resource
+  const patientReference = 'Patient/' + patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0];
   if (patientReference !== 'Patient/undefined') {
     // NOTE: CQL Worker is not used with cql-execution branch of encender
     const WorkerFactory = () => {
@@ -90,7 +81,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     const lib = new cql.Library(measure, repository);
     const executor = new cql.Executor(lib, codeService, cqlParameters);
     const psource = cqlfhir.PatientSource.FHIRv401();
-    psource.loadBundles(testData[patientId]);
+    psource.loadBundles(packageResources(patientData));
     const result = await executor.exec(psource);
     const cqlResults = result?.patientResults?.[Object.keys(result.patientResults)?.[0]];
     let patientInfo={};
@@ -99,12 +90,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       patientInfo = cqlResults.PertinentHistory.patientInfo;
       patientHistory = cqlResults.PertinentHistory.patientHistory;
     }
-    const resources = testOutput[pathway][patientId].entry.map((e) => {
-      return e.resource
-    });
-    // const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
-    const [CarePlan, RequestGroup, ...otherResources] = resources;
-
+    const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
     let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.text === 'Primary HPV')[0];
@@ -137,14 +123,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     // output otherResources as a temporary stand-in
     console.timeEnd('Apply CDS');
 
-    if (LOGGER_ENABLED){
-      logMsg({
-        timeRequestSent: new Date(),
-        patientReference: patientReference,
-        payload: [patientInfo, decisionAids]
-      });
-    }
-    
     if (thereAreOutputs) {
       if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
@@ -177,6 +155,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
 function recursiveActionParse(actions, decisionAids, resolver) {
     actions.forEach((act)=> {
       const entry = {
+      id: '',
         recommendation:'',
         recommendationGroup:'',
         recommendationDetails:[],
@@ -188,18 +167,27 @@ function recursiveActionParse(actions, decisionAids, resolver) {
         riskTable:{},
       }
       entry.recommendation = act.title;
-      if (act.resource) {
-        
-        const serviceReq = resolver(act.resource.reference)?.[0];
-        entry.recommendationGroup = getReasonCodeDisplay(serviceReq);
-      }
+      entry.id = act.id;
+      let serviceReq;
+      if (act.resource != undefined && act.resource != null) {
+        serviceReq = resolver(act.resource.reference)?.[0];
 
-      entry.recommendationDetails.push(act.description);
-      entry.recommendationDate = getTimingDateFromAction(act);
-      if(act.documentation){
+        entry.recommendationGroup = getReasonCodeDisplay(serviceReq);
+        } else {
+        entry.recommendationGroup = ""
+        }
+        
+        entry.recommendationDetails.push(act.description);
+        entry.recommendationDate = getTimingDateFromAction(act);
+      if (act.documentation){
         entry.documentation = act.documentation;
       }
       decisionAids.push(entry);
+      if (act.action) {
+//        let subEntry = recursiveActionParse(act.action, decisionAids, resolver);
+        recursiveActionParse(act.action, decisionAids, resolver);
+        //decisionAids.push(subEntry)
+      }
     })
   return decisionAids;
   
@@ -230,6 +218,7 @@ function getTimingDateFromAction(action) {
   }
 
   let timingDate = null;
+
   if (action.timingDateTime) {
       timingDate = action.timingDateTime;
   } else if (action.timingPeriod && action.timingPeriod.start) {
@@ -245,4 +234,17 @@ function getTimingDateFromAction(action) {
   }
 
   return timingDate;
+}
+
+function packageResources(resourceList) {
+  const bundleStructure = {
+    "resourceType": "Bundle",
+    "id": "example-resources",
+    "type": "collection",
+    "entry": []
+  }
+  resourceList.map((r) => {
+    bundleStructure.entry.push({resource: r});
+  })
+  return bundleStructure;
 }

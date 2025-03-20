@@ -1,0 +1,504 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "flow-FollowUp",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
+    ]
+  },
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/PlanDefinition/flow-FollowUp",
+  "title": "Follow Up",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    }
+  ],
+  "author": [
+    {
+      "name": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention."
+    }
+  ],
+  "editor": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "reviewer": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "endorser": [
+    {
+      "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
+    }
+  ],
+  "library": [
+    "Library/FollowUp|1.0.0"
+  ],
+  "action": [
+    {
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupColonoscopyCRCResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyCRCResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupColonoscopyCRCResult",
+      "title": "Refer to Oncology",
+      "description": "Refer to Oncology for evaluation.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupColonoscopyPolypResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupColonoscopyPolypResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupColonoscopyPolypResult",
+      "title": "Follow-up with endoscopist for recommendation",
+      "description": "Follow-up with endoscopist to determine appropriate interval for next screening/surveillance colonoscopy.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupCTCInconclusiveResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCInconclusiveResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupCTCInconclusiveResult",
+      "title": "Repeat screening due to inconclusive CTC result",
+      "description": "Repeat screening due to inconclusive CT colonography test results.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupCTCAbnormalResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupCTCAbnormalResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupCTCAbnormalResult",
+      "title": "Order follow-up colonoscopy due to abnormal CTC result",
+      "description": "Order follow-up colonoscopy.\n\nAbnormal findings identified by CT colonography require follow-up with colonoscopy for the screening benefits to be achieved.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupStoolInconclusiveResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolInconclusiveResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupStoolInconclusiveResult",
+      "title": "Repeat screening due to inconclusive stool result",
+      "description": "Repeat screening due to inconclusive test results.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupStoolAbnormalResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupStoolAbnormalResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupStoolAbnormalResult",
+      "title": "Order follow-up colonoscopy due to abnormal stool result",
+      "description": "Order follow-up colonoscopy.\n\nPositive stool-based tests or abnormal findings require follow-up with colonoscopy for the screening benefits to be achieved.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    },
+    {
+      "documentation": [
+        {
+          "type": "citation",
+          "label": "USPSTF (2021)",
+          "display": "Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement",
+          "citation": "US Preventive Services Task Force. Screening for Colorectal Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. Published online May 18, 2021.",
+          "url": "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/colorectal-cancer-screening"
+        }
+      ],
+      "condition": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "ExistsFollowupFlexSigAbnormalResult"
+          },
+          "kind": "applicability"
+        }
+      ],
+      "dynamicValue": [
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultCode"
+          },
+          "path": "%action.code[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultTiming"
+          },
+          "path": "%action.timingTiming"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultFlag"
+          },
+          "path": "%action.extension"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultCode"
+          },
+          "path": "code.coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultReason"
+          },
+          "path": "reasonCode[0].coding[0]"
+        },
+        {
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "FollowupFlexSigAbnormalResultTimingEvent"
+          },
+          "path": "occurrenceDateTime"
+        }
+      ],
+      "id": "FollowupFlexSigAbnormalResult",
+      "title": "Order follow-up colonoscopy due to abnormal flex sig result",
+      "description": "Order follow-up colonoscopy.\n\nAbnormal findings identified by flexible sigmoidoscopy require follow-up with colonoscopy for the screening benefits to be achieved.",
+      "definitionCanonical": "http://cancerscreeningcds.github.io/crcsm-cds/ActivityDefinition/ColorectalCancerScreeningServiceRequest|1.0.0"
+    }
+  ],
+  "version": "1.0.0",
+  "date": "2025-02-28",
+  "status": "draft",
+  "experimental": true,
+  "publisher": "The Health FFRDC, operated by The MITRE Corporation, in support of the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention.",
+  "copyright": "(C) 2025 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 24-2711. Distribution Unlimited. Unless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30123F17931.",
+  "approvalDate": "2025-02-28",
+  "lastReviewDate": "2025-02-28",
+  "name": "flow-FollowUp",
+  "description": "Determines next steps, if any, based on result of screening tests. This may be triggered by a diagnostic report being received by the system or a test result being documented in a structured manner.",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type"
+      }
+    ]
+  }
+}

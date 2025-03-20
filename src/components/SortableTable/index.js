@@ -16,7 +16,6 @@ function SortableTable(props) {
     return sortConfig?.key === name ? sortConfig.direction : 'none';
   };
   const highlightClass = ['unknown','normal','high'];
-  
   if (items.length === 0) return <div></div>
   else return(
     <Table className='sortable'>
@@ -98,7 +97,7 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
       details.map(d => d?.value).join('; ') :
       details;
     return <span className={incompleteClass} title={detailText}>
-      {itm[key] ?? ''}
+      {itm[key] ?? detailText}
       {
         itm.edited ? <span className="is_manual">*</span> : null
       }

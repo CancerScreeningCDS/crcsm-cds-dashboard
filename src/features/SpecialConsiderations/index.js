@@ -34,6 +34,10 @@ function SpecialConsiderations(props) {
     onToggleStatusChange({ ...toggleStatus, hasBreastExamFindings: event.target.checked, isToggleChanged: true });
   };
   
+  const handleSymptomsChange = (event) => {
+    onToggleStatusChange({ ...toggleStatus, hasSymptoms: event.target.checked, isToggleChanged: true });
+  };
+  
   const handleFdrGeneticChange = (event) => {
     onToggleStatusChange({ ...toggleStatus, hasFdrGenetic: event.target.checked, isToggleChanged: true });
   };
@@ -57,35 +61,40 @@ function SpecialConsiderations(props) {
 
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasGeneticMarkers" checked={toggleStatus.hasGeneticMarkers} onChange={handleGeneticMarkersChange} />
-        <label className="form-check-label" htmlFor="force_hasGeneticMarkers">Heriditary genetic markers of unknown variant</label>
-        <IconTooltip text="Does the patient have relevant genetic markers?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasGeneticMarkers">Hereditary GI syndrome(s)</label>
+        <IconTooltip text="Does the patient have hereditary GI syndrome(s)?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasCurrentBreastCancer" checked={toggleStatus.hasCurrentBreastCancer} onChange={handleCurrentBreastCancerChange} />
-        <label className="form-check-label" htmlFor="force_hasCurrentBreastCancer">Current breast cancer</label>
-        <IconTooltip text="Does the patient have current breast cancer?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasCurrentBreastCancer">Colorectal cancer</label>
+        <IconTooltip text="Does the patient have colorectal cancer?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasBreastDiseaseSymptoms" checked={toggleStatus.hasBreastDiseaseSymptoms} onChange={handleBreastDiseaseSymptomsChange}/>
-        <label className="form-check-label" htmlFor="force_hasBreastDiseaseSymptoms">New or worsening breast disease symptoms</label>
-        <IconTooltip text="Does the patient have symptoms of breast disease?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasBreastDiseaseSymptoms">Neoplastic polyp(s)</label>
+        <IconTooltip text="Does the patient have result of neoplastic polyp(s)?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasBreastExamFindings" checked={toggleStatus.hasBreastExamFindings} onChange={handleBreastExamFindingsChange} />
-        <label className="form-check-label" htmlFor="force_hasBreastExamFindings">New or worsening breast exam findings?</label>
-        <IconTooltip text="Does the patient have findings after a breast exam?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasBreastExamFindings">Inflammatory bowel disease (IBD)</label>
+        <IconTooltip text="Does the patient have diagnosis or condition of IBD"></IconTooltip>
+      </div>
+      <div className="form-check form-switch">
+        <input className="form-check-input" type="checkbox" role="switch" id="force_hasSymptoms" checked={toggleStatus.hasSymptoms} onChange={handleSymptomsChange} />
+        <label className="form-check-label" htmlFor="force_hasSymptoms">Symptomatic (colorectal signs or symptoms)</label>
+        <IconTooltip text="Does the patient have signs or symptoms of colorectal disease?"></IconTooltip>
       </div>
       <hr />
       <h2>Family History Considerations</h2>
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasFdrGenetic" checked={toggleStatus.hasFdrGenetic} onChange={handleFdrGeneticChange} />
-        <label className="form-check-label" htmlFor="force_hasFdrGenetic">First degree relative with genetic marker or syndrome</label>
-        <IconTooltip text="Does the patient have first degree relative with relevant genetic markers?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasFdrGenetic">Family history of hereditary GI syndrome(s)</label>
+        <IconTooltip text="Does the patient have a family history of hereditary GI syndromes?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
         <input className="form-check-input" type="checkbox" role="switch" id="force_hasFdrCancer" checked={toggleStatus.hasFdrCancer} onChange={handleFdrCancerChange} />
-        <label className="form-check-label" htmlFor="force_hasFdrCancer">First degree relative with breast cancer diagnosis</label>
-        <IconTooltip text="Does the patient have any first degree relatives who received a breast cancer diagnosis?"></IconTooltip>
+        <label className="form-check-label" htmlFor="force_hasFdrCancer">First degree relative with colorectal cancer or advanced adenoma(s)?</label>
+        <IconTooltip text="Does the patient have any first degree relatives who received a colorectal cancer or advanced adenoma(s) diagnosis?"></IconTooltip>
       </div>
       <hr />
     </section>

@@ -1,0 +1,62 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "PlanDefinitionActionCodeSystem",
+  "id": "plan-definition-action-code-system",
+  "title": "Plan Definition Action Code System",
+  "description": "Code representing plan definition action codes",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/plan-definition-action-code-system",
+  "concept": [
+    {
+      "code": "eligible",
+      "display": "Eligible for screening"
+    },
+    {
+      "code": "noteligible",
+      "display": "Not eligible for screening"
+    },
+    {
+      "code": "error",
+      "display": "An error occurred"
+    },
+    {
+      "code": "sdmcontinue",
+      "display": "Shared decision making to continue screening"
+    },
+    {
+      "code": "stopscreen",
+      "display": "Recommendation to stop screening"
+    },
+    {
+      "code": "startscreeningat45yearsold",
+      "display": "Start screening at 45 years old"
+    },
+    {
+      "code": "startscreening",
+      "display": "Start screening"
+    },
+    {
+      "code": "continueroutinescreening",
+      "display": "Continue routine screening"
+    },
+    {
+      "code": "continueroutinescreeninghighqualitytest",
+      "display": "Continue routine screening if high-quality test"
+    },
+    {
+      "code": "orderfollowupcolonoscopy",
+      "display": "Order follow-up colonoscopy"
+    },
+    {
+      "code": "specialtyreferral",
+      "display": "Refer to specialist recommendations"
+    },
+    {
+      "code": "increasedriskscreening",
+      "display": "Increased risk screening for colorectal cancer"
+    }
+  ],
+  "experimental": true,
+  "count": 12
+}

@@ -31,7 +31,7 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add result',
+          addButtonText: null,
           form: {
             canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
             title: 'Add Result',
@@ -49,11 +49,43 @@ export const config = {
       disclaimer: null,
       tables: [
         {
+          name: 'familyMemberHistory',
+          header: [
+            {
+              key: 'name',
+              display: 'Relationship'
+            },
+            {
+              key: 'value',
+              display: 'Result',
+              detailKey: 'longValue'
+            },            
+            {
+              key: 'age',
+              display: 'Age at Diagnosis'
+            },
+            {
+              key: 'status',
+              display: 'Action'
+            }
+          ],
+          addButtonText: null,
+          form: {
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/FamilyHistorynQuestionnaire',
+            title: 'Add Family History',
+            preamble: null
+          }
+        },
+        {
           name: 'conditions',
           header: [
             {
               key: 'name',
               display: 'Condition'
+            },
+            {
+              key: 'state',
+              display: 'Status'
             },
             {
               key: 'date',
@@ -64,7 +96,7 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add condition',
+          addButtonText: null,
           form: {
             canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentConditionQuestionnaire',
             title: 'Add Condition',
@@ -91,7 +123,7 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add observation',
+          addButtonText: null,
           form: {
             canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentObservationQuestionnaire',
             title: 'Add Observation',
@@ -114,7 +146,7 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add procedure',
+          addButtonText: null,
           form: {
             canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentProcedureQuestionnaire',
             title: 'Add Procedure',

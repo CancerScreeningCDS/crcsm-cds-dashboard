@@ -1,0 +1,22 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "ColonoscopyResultObservationCodeSystem",
+  "id": "colonoscopy-result-observation-system",
+  "title": "Colonoscopy Result Observation Code System",
+  "description": "Code representing cancer screening related observations",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/colonoscopy-result-observation-system",
+  "concept": [
+    {
+      "code": "crcfinding",
+      "display": "Colorectal cancer finding"
+    },
+    {
+      "code": "missingrec",
+      "display": "Missing endoscopist recommendation for potentially precancerous polyp finding"
+    }
+  ],
+  "experimental": true,
+  "count": 2
+}

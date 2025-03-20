@@ -1,0 +1,50 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "ScreeningEligibleQuestionnaire",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
+    ]
+  },
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/Questionnaire/ScreeningEligibleQuestionnaire",
+  "title": "Screening Eligible",
+  "subjectType": [
+    "Patient"
+  ],
+  "item": [
+    {
+      "code": [
+        {
+          "code": "30525-0",
+          "system": "http://loinc.org"
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+          "valueCoding": {
+            "code": "[a]",
+            "system": "http://unitsofmeasure.org"
+          }
+        }
+      ],
+      "linkId": "age-in-years",
+      "text": "Age in years",
+      "type": "integer"
+    },
+    {
+      "code": [
+        {
+          "code": "ColorectalSymptoms",
+          "system": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/screening-observation-code-system"
+        }
+      ],
+      "linkId": "colorectal-symptoms",
+      "text": "New or worsening colorectal symptoms",
+      "type": "boolean"
+    }
+  ],
+  "version": "1.0.0",
+  "name": "ScreeningEligible",
+  "status": "draft"
+}

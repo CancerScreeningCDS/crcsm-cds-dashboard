@@ -1,17 +1,25 @@
-import JaniceMedford from './bundles/patients/JaniceMedford_fdr_breastca_age_45.json';
-import JosephineGreene from './bundles/patients/JosephineGreene-past-breast-pain-adh-biopsy.json';
-import JustineWallace from './bundles/patients/JustineWallace_brca1.json';
-import LindaNadler from './bundles/patients/LindaNadler-dcis.json';
-import MarionHenderson from './bundles/patients/MarionHenderson_avg_45_to_54.json';
-import NadiaWills from './bundles/patients/NadiaWills_palpable_breast_mass.json';
-import PatriciaLambert from './bundles/patients/PatriciaLambert_remission_lt_5_years.json'
+import ColinCarlson from './bundles/patients/ColinCarlson.json'
+import HankCarlson from './bundles/patients/HankCarlson.json'
+import PollyStuart from './bundles/patients/PollyStuart.json'
+import SallySimpson from './bundles/patients/SallySimpson.json'
+import StellaParker from './bundles/patients/StellaParker.json'
+import EduardElder from './bundles/patients/EduardElder.json'
+import FranColette from './bundles/patients/FranColette.json'
+import OllieOncken from './bundles/patients/OllieOncken.json'
+import HollyHereditary from './bundles/patients/HollyHereditary.json'
+import IsaacBrown from './bundles/patients/IsaacBrown.json'
+import FannyFamiglietti from './bundles/patients/FannyFamiglietti.json'
 
 export const testData = {
-  JaniceMedford : JaniceMedford,
-  JosephineGreene : JosephineGreene,
-  JustineWallace : JustineWallace,
-  LindaNadler : LindaNadler,
-  MarionHenderson : MarionHenderson,
-  NadiaWills : NadiaWills,
-  PatriciaLambert : PatriciaLambert
+  ColinCarlson: ColinCarlson,
+  EduardElder: EduardElder,
+  FannyFamiglietti: FannyFamiglietti,
+  FranColette: FranColette,
+  HankCarlson: HankCarlson,
+  HollyHereditary: HollyHereditary,
+  IsaacBrown: IsaacBrown,
+  OllieOncken: OllieOncken,
+  PollyStuart: PollyStuart,
+  SallySimpson: SallySimpson,
+  StellaParker: StellaParker
   }

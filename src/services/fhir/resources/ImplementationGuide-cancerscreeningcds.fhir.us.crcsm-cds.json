@@ -1,0 +1,1697 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "cancerscreeningcds.fhir.us.crcsm-cds",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/ImplementationGuide/cancerscreeningcds.fhir.us.crcsm-cds",
+  "version": "0.1.0",
+  "name": "crcsmcds",
+  "title": "Colorectal Cancer Screening and Management (CRCSM) Clinical Decision Support (CDS) Implementation Guide",
+  "status": "draft",
+  "publisher": "MITRE",
+  "contact": [
+    {
+      "name": "MITRE",
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.mitre.org/"
+        }
+      ]
+    }
+  ],
+  "packageId": "cancerscreeningcds.fhir.us.crcsm-cds",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "dependsOn": [
+    {
+      "packageId": "hl7.fhir.us.core",
+      "version": "3.1.0",
+      "uri": "http://hl7.org/fhir/us/core/ImplementationGuide/hl7.fhir.us.core",
+      "id": "hl7_fhir_us_core"
+    },
+    {
+      "packageId": "hl7.fhir.uv.cpg",
+      "version": "1.0.0",
+      "uri": "http://hl7.org/fhir/uv/cpg/ImplementationGuide/hl7.fhir.uv.cpg",
+      "id": "hl7_fhir_uv_cpg"
+    },
+    {
+      "packageId": "hl7.fhir.uv.sdc",
+      "version": "2.7.0",
+      "uri": "http://hl7.org/fhir/uv/sdc/ImplementationGuide/sdc",
+      "id": "hl7_fhir_uv_sdc"
+    }
+  ],
+  "definition": {
+    "grouping": [
+      {
+        "id": "HighLevel",
+        "name": "High Level Recommendation",
+        "description": "Resources related to the High Level logic pathway."
+      },
+      {
+        "id": "PrimaryScreeningDecision",
+        "name": "Primary Screening Decision",
+        "description": "Resources related to the Primary Screening Decision mid-level logic pathway."
+      },
+      {
+        "id": "ScreeningEligible",
+        "name": "Screening Eligible",
+        "description": "Resources related to ScreeningEligible logic path"
+      },
+      {
+        "id": "DecisionToScreen",
+        "name": "Decision to Screen",
+        "description": "Resources related to DecisionToScreen logic path"
+      },
+      {
+        "id": "Risk Factors",
+        "name": "Risk Factors",
+        "description": "Resources related to IncreasedRiskExclusions logic path"
+      },
+      {
+        "id": "USPSTFAvgRisk",
+        "name": "USPSTF Average Risk",
+        "description": "Resources related to USPSTFAvgRisk flow"
+      },
+      {
+        "id": "ScreeningDue",
+        "name": "Due for Screening",
+        "description": "Resources related to ScreeningDue flow"
+      },
+      {
+        "id": "Screening Incomplete",
+        "name": "Screening Incomplete",
+        "description": "Resources related to ScreeningIncomplete flow"
+      },
+      {
+        "id": "Follow-up",
+        "name": "Follow-up",
+        "description": "Resources related to FollowUp logic path"
+      }
+    ],
+    "resource": [
+      {
+        "reference": {
+          "reference": "PlanDefinition/flow-USPSTFAvgRisk"
+        },
+        "name": "Average Risk",
+        "description": "Provides recommendations on the age to start and to stop screening, modalities, and screening intervals for average risk patients, based on U.S. Preventative Services Task Force (USPSTF). It also determines the next due date for screening for average risk patients, based on their age and screening history.\n\nThe path is intended for use with either individual patient alerts/flagging or for generating asynchronous reports on a cohort of patients in order to target outreach or escalation.",
+        "exampleBoolean": false,
+        "groupingId": "USPSTFAvgRisk"
+      },
+      {
+        "reference": {
+          "reference": "Library/CDSConnectCommonsforFHIRv401"
+        },
+        "exampleBoolean": false,
+        "name": "CDSConnectCommonsforFHIRv401"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/CheckIsIncludedAndNotExcluded_false"
+        },
+        "exampleBoolean": false,
+        "name": "CheckIsIncludedAndNotExcluded_false"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ColinCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "ColinCarlson"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/colonoscopy-result-observation-system"
+        },
+        "name": "Colonoscopy Result Observation Code System",
+        "description": "Code representing cancer screening related observations",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/ColorectalCancerScreeningServiceRequest"
+        },
+        "name": "Colorectal Cancer Screening Service Request",
+        "description": "This ActivityDefinition generates a ServiceRequest for screening study or specialty referral.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/CommunicateEligible"
+        },
+        "name": "Communicate Eligible",
+        "description": "This ActivityDefinition generates a CommunicationRequest containing information about the patient's ineligibility for screening.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/CommunicateNotEligible"
+        },
+        "name": "Communicate Not Eligible",
+        "description": "This ActivityDefinition generates a CommunicationRequest containing information about the patient's ineligibility for screening.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/CommunicateRecommendationStopScreening"
+        },
+        "name": "Communicate Recommendation to Stop Screening",
+        "description": "This ActivityDefinition generates a CommunicationRequest recommending to stop screening.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/CommunicateSDMContinueScreening"
+        },
+        "name": "Communicate Shared Decision Making to Continue Screening",
+        "description": "This ActivityDefinition generates a CommunicationRequest recommending shared decision making on the decision to continue screening.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Library/CRCSMCommonFunctions"
+        },
+        "exampleBoolean": false,
+        "name": "CRCSMCommonFunctions"
+      },
+      {
+        "reference": {
+          "reference": "Library/CSMCommonFunctions"
+        },
+        "exampleBoolean": false,
+        "name": "CSMCommonFunctions"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/c-rads-2005-code-system"
+        },
+        "name": "CT Colonography Reporting and Data System (C-RADS)",
+        "description": "Codes for C-RADS v2005 colorectal finding categories.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/c-rads-2023-code-system"
+        },
+        "name": "CT Colonography Reporting and Data System (C-RADS)",
+        "description": "Codes for C-RADS v2023 colorectal finding categories.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Library/DataElements"
+        },
+        "exampleBoolean": false,
+        "name": "DataElements"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/flow-DecisionToScreen"
+        },
+        "name": "Decision to Screen",
+        "description": "Evaluates criteria for when to stop screening for colorectal cancer, and determines whether the patient is eligible for average risk screening, increased risk screening, or surveillance, based on the risk factors outlined by USPSTF. \n\nProvides recommendations for screening and surveillance based on the identified risk path and specific risk factors.",
+        "exampleBoolean": false,
+        "groupingId": "DecisionToScreen"
+      },
+      {
+        "reference": {
+          "reference": "Library/DecisionToScreen"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "DecisionToScreen",
+        "groupingId": "DecisionToScreen"
+      },
+      {
+        "reference": {
+          "reference": "Library/DecisionToScreenActions"
+        },
+        "description": "CQL library for logic path output/actions.",
+        "exampleBoolean": false,
+        "name": "DecisionToScreenActions",
+        "groupingId": "DecisionToScreen"
+      },
+      {
+        "reference": {
+          "reference": "Library/DecisionToScreenEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "DecisionToScreenEvents",
+        "groupingId": "DecisionToScreen"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_EduardElder"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_EduardElder"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_eve-Age86AndOlder_yes_act-HarmsLikelyOutweighBenefits"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_eve-Age86AndOlder_yes_act-HarmsLikelyOutweighBenefits"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_FannyFamiglietti"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_FannyFamiglietti"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_HankCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_HankCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/DecisionToScreen_StellaParker"
+        },
+        "exampleBoolean": false,
+        "name": "DecisionToScreen_StellaParker"
+      },
+      {
+        "reference": {
+          "reference": "Library/DetermineNextDueDate"
+        },
+        "exampleBoolean": false,
+        "name": "DetermineNextDueDate"
+      },
+      {
+        "reference": {
+          "reference": "Library/DetermineNextDueDateActions"
+        },
+        "exampleBoolean": false,
+        "name": "DetermineNextDueDateActions"
+      },
+      {
+        "reference": {
+          "reference": "Library/DetermineNextDueDateEvents"
+        },
+        "exampleBoolean": false,
+        "name": "DetermineNextDueDateEvents"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/EduardElder"
+        },
+        "exampleBoolean": false,
+        "name": "EduardElder"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_no_eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_no_eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_no_act-AvgRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_no_eve-AgeOver76_yes_act-SelectivelyOfferScreening__eve-LifeExp10_yes_act-sdmcontinuelifexp__eve-riskFactors_yes_act-incRiskEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-Age86AndOlder_yes_act-HarmsLikelyOutweighBenefits"
+        },
+        "exampleBoolean": false,
+        "name": "eve-Age86AndOlder_yes_act-HarmsLikelyOutweighBenefits"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-AgeOver45_no_act-RecommendStartScreeningAt45"
+        },
+        "exampleBoolean": false,
+        "name": "eve-AgeOver45_no_act-RecommendStartScreeningAt45"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-AgeOver45_yes_eve-priorScreeningExists_no_act-updateDueDateNow"
+        },
+        "exampleBoolean": false,
+        "name": "eve-AgeOver45_yes_eve-priorScreeningExists_no_act-updateDueDateNow"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-AgeOver45_yes_eve-priorScreeningExists_yes_act-determineDueDate"
+        },
+        "exampleBoolean": false,
+        "name": "eve-AgeOver45_yes_eve-priorScreeningExists_yes_act-determineDueDate"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_no_act-AvgRiskScreeningEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_no_act-AvgRiskScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_yes_act-HxPolyps"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_yes_act-HxPolyps"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_yes_act-FamilyHxCRC"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_yes_act-FamilyHxCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_yes_act-HxCRC"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_yes_act-HxCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_no_eve-IBD_yes_act-IBD"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_no_eve-IBD_yes_act-IBD"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HereditarySyndrome_yes_act-CRCHereditarySyndrome"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HereditarySyndrome_yes_act-CRCHereditarySyndrome"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_no_act-ScreeningEligible"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_no_act-ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_yes_act-Diagnostic"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_yes_act-Diagnostic"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HxTotalColectomy_no_eve-ActiveCRC_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HxTotalColectomy_no_eve-ActiveCRC_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-HxTotalColectomy_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-HxTotalColectomy_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_yes_act-repeatScreening"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_yes_act-repeatScreening"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_yes_act-repeatScreening"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_yes_act-repeatScreening"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_yes_act-followUpColonoscopist"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_yes_act-followUpColonoscopist"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_yes_act-oncologyReferral"
+        },
+        "exampleBoolean": false,
+        "name": "eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_yes_act-oncologyReferral"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-nextdueexists_no_act-determinedue"
+        },
+        "exampleBoolean": false,
+        "name": "eve-nextdueexists_no_act-determinedue"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-nextdueexists_yes_eve-DetermineIfDueForScreening_due_act-orderTest"
+        },
+        "exampleBoolean": false,
+        "name": "eve-nextdueexists_yes_eve-DetermineIfDueForScreening_due_act-orderTest"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-nextdueexists_yes_eve-DetermineIfDueForScreening_notdue_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "eve-nextdueexists_yes_eve-DetermineIfDueForScreening_notdue_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-nextdueexists_yes_eve-DetermineIfDueForScreening_overdue_act-patientOutreach_act-orderTest"
+        },
+        "exampleBoolean": false,
+        "name": "eve-nextdueexists_yes_eve-DetermineIfDueForScreening_overdue_act-patientOutreach_act-orderTest"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-pendingColonoscopy_act-testpending"
+        },
+        "exampleBoolean": false,
+        "name": "eve-pendingColonoscopy_act-testpending"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-pendingCTC_act-testpending"
+        },
+        "exampleBoolean": false,
+        "name": "eve-pendingCTC_act-testpending"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-pendingFlexSig_act-testpending"
+        },
+        "exampleBoolean": false,
+        "name": "eve-pendingFlexSig_act-testpending"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-pendinggFOBT_act-testpending"
+        },
+        "exampleBoolean": false,
+        "name": "eve-pendinggFOBT_act-testpending"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/eve-pendingsDNAFIT_act-testpending"
+        },
+        "exampleBoolean": false,
+        "name": "eve-pendingsDNAFIT_act-testpending"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FannyFamiglietti"
+        },
+        "exampleBoolean": false,
+        "name": "FannyFamiglietti"
+      },
+      {
+        "reference": {
+          "reference": "Library/FHIRHelpers"
+        },
+        "exampleBoolean": false,
+        "name": "FHIRHelpers"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/flow-FollowUp"
+        },
+        "name": "Follow Up",
+        "description": "Determines next steps, if any, based on result of screening tests. This may be triggered by a diagnostic report being received by the system or a test result being documented in a structured manner.",
+        "exampleBoolean": false,
+        "groupingId": "Follow-up"
+      },
+      {
+        "reference": {
+          "reference": "Library/FollowUp"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "FollowUp",
+        "groupingId": "Follow-up"
+      },
+      {
+        "reference": {
+          "reference": "Library/FollowUpActions"
+        },
+        "description": "CQL library for logic path output/actions.",
+        "exampleBoolean": false,
+        "name": "FollowUpActions",
+        "groupingId": "Follow-up"
+      },
+      {
+        "reference": {
+          "reference": "Library/FollowUpEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "FollowUpEvents",
+        "groupingId": "Follow-up"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_no_eve-abnormalCTColonography_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_yes_act-repeatScreening"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_no_eve-lastTestCTC_yes_eve-inconclusiveCTColonography_yes_act-repeatScreening"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_no_eve-lastTestFlexSig_yes_eve-abnormalFlexSig_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_yes_act-FollowUpColonoscopy"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_no_eve-abnormalStoolTest_yes_act-FollowUpColonoscopy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_yes_act-repeatScreening"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_no_eve-lastTestStool_yes_eve-inconclusiveStoolTest_yes_act-repeatScreening"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_no_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_no_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_yes_act-followUpColonoscopist"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_no_eve-colonoscopyFindingPolyps_yes_act-followUpColonoscopist"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_no_eve-recommendedInterval_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_yes_act-oncologyReferral"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_eve-lastTestColonoscopy_yes_eve-colonoscopyFindingCRC_yes_act-oncologyReferral"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_FranColette"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_FranColette"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_OllieOncken"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_OllieOncken"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FollowUp_PollyStuart"
+        },
+        "exampleBoolean": false,
+        "name": "FollowUp_PollyStuart"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/FranColette"
+        },
+        "exampleBoolean": false,
+        "name": "FranColette"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HankCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "HankCarlson"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/HighLevel"
+        },
+        "name": "High Level Flow",
+        "description": "Brings together recommendations from Primary Screening Decision and Follow-up Screening Result.",
+        "exampleBoolean": false,
+        "groupingId": "HighLevel"
+      },
+      {
+        "reference": {
+          "reference": "Library/HighLevel"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "HighLevel",
+        "groupingId": "HighLevel"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_ColinCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_ColinCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_EduardElder"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_EduardElder"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_FannyFamiglietti"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_FannyFamiglietti"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_FranColette"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_FranColette"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_HankCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_HankCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_HollyHereditary"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_HollyHereditary"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_IsaacBrown"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_IsaacBrown"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_OllieOncken"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_OllieOncken"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_PaulinePolyanski"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_PaulinePolyanski"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_PollyStuart"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_PollyStuart"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_SallySimpson"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_SallySimpson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HighLevel_StellaParker"
+        },
+        "exampleBoolean": false,
+        "name": "HighLevel_StellaParker"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/HollyHereditary"
+        },
+        "exampleBoolean": false,
+        "name": "HollyHereditary"
+      },
+      {
+        "reference": {
+          "reference": "Library/Hospice"
+        },
+        "exampleBoolean": false,
+        "name": "Hospice"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/inc-AgeAtLeast18_error"
+        },
+        "exampleBoolean": false,
+        "name": "inc-AgeAtLeast18_error"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/inc-AgeAtLeast18_MostRecentAgeValue_yes"
+        },
+        "exampleBoolean": false,
+        "name": "inc-AgeAtLeast18_MostRecentAgeValue_yes"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/inc-AgeAtLeast18_no"
+        },
+        "exampleBoolean": false,
+        "name": "inc-AgeAtLeast18_no"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/inc-AgeAtLeast18_yes"
+        },
+        "exampleBoolean": false,
+        "name": "inc-AgeAtLeast18_yes"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/flow-IncreasedRiskExclusions"
+        },
+        "name": "Increased Risk Exclusions",
+        "description": "Determines whether a patient should be considered for average risk colorectal cancer screening or increased risk screening or surveillance. Patients who meet criteria for higher than average risk for colorectal cancer, as defined in the U.S. Preventative Services Task Force (USPSTF), are excluded from average risk screening recommendations.\n\nThis path can be used to ensure that USPSTF average-risk recommendations are suppressed for patients meeting increased risk criteria. It can also be used to identify and surface risk factors for colorectal cancer, and to direct patients to appropriate screening/surveillance recommendations for increased risk populations.",
+        "exampleBoolean": false,
+        "groupingId": "Risk Factors"
+      },
+      {
+        "reference": {
+          "reference": "Library/IncreasedRiskExclusions"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions",
+        "groupingId": "Risk Factors"
+      },
+      {
+        "reference": {
+          "reference": "Library/IncreasedRiskExclusionsActions"
+        },
+        "description": "CQL library for logic path output/actions.",
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusionsActions",
+        "groupingId": "Risk Factors"
+      },
+      {
+        "reference": {
+          "reference": "Library/IncreasedRiskExclusionsEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusionsEvents",
+        "groupingId": "Risk Factors"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_no_act-AvgRiskScreeningEligible"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_no_act-AvgRiskScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_yes_act-HxPolyps"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_no_eve-HxPolyps_yes_act-HxPolyps"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_yes_act-FamilyHxCRC"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_no_eve-FamilyHx_yes_act-FamilyHxCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_yes_act-HxCRC"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_no_eve-HxCRC_yes_act-HxCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_yes_act-IBD"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_no_eve-IBD_yes_act-IBD"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_eve-HereditarySyndrome_yes_act-CRCHereditarySyndrome"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_eve-HereditarySyndrome_yes_act-CRCHereditarySyndrome"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_FannyFamiglietti"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_FannyFamiglietti"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_HankCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_HankCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_HollyHereditary"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_HollyHereditary"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_IsaacBrown"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_IsaacBrown"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IncreasedRiskExclusions_PaulinePolyanski"
+        },
+        "exampleBoolean": false,
+        "name": "IncreasedRiskExclusions_PaulinePolyanski"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IsaacBrown"
+        },
+        "exampleBoolean": false,
+        "name": "IsaacBrown"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IsScreeningEligible_false_ActiveCRC"
+        },
+        "exampleBoolean": false,
+        "name": "IsScreeningEligible_false_ActiveCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IsScreeningEligible_false_HxTotalColectomy"
+        },
+        "exampleBoolean": false,
+        "name": "IsScreeningEligible_false_HxTotalColectomy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IsScreeningEligible_false_Symptomatic"
+        },
+        "exampleBoolean": false,
+        "name": "IsScreeningEligible_false_Symptomatic"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/IsScreeningEligible_true"
+        },
+        "exampleBoolean": false,
+        "name": "IsScreeningEligible_true"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/OllieOncken"
+        },
+        "exampleBoolean": false,
+        "name": "OllieOncken"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PaulinePolyanski"
+        },
+        "exampleBoolean": false,
+        "name": "PaulinePolyanski"
+      },
+      {
+        "reference": {
+          "reference": "Library/PertinentHistory"
+        },
+        "exampleBoolean": false,
+        "name": "PertinentHistory"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/plan-definition-action-code-system"
+        },
+        "name": "Plan Definition Action Code System",
+        "description": "Code representing plan definition action codes",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/plan-definition-action-codes"
+        },
+        "name": "Plan Definition Action Codes",
+        "description": "This value set includes action codes for Plan Definitions within this implementation guide.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/plan-definition-action-reason-code-system"
+        },
+        "name": "Plan Definition Action Reason Code System",
+        "description": "Code representing plan definition action reason codes",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/plan-definition-action-reason-codes"
+        },
+        "name": "Plan Definition Action Reason Codes",
+        "description": "This value set includes action reason codes for Plan Definitions within this implementation guide.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PollyStuart"
+        },
+        "exampleBoolean": false,
+        "name": "PollyStuart"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/PrimaryScreeningDecision"
+        },
+        "name": "Primary Screening Decision",
+        "description": "Primary Screening Decision pathway.",
+        "exampleBoolean": false,
+        "groupingId": "PrimaryScreeningDecision"
+      },
+      {
+        "reference": {
+          "reference": "Library/PrimaryScreeningDecision"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision",
+        "groupingId": "PrimaryScreeningDecision"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_CheckIsIncludedAndNotExcluded_false"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_CheckIsIncludedAndNotExcluded_false"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_ColinCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_ColinCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_EduardElder"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_EduardElder"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_FannyFamiglietti"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_FannyFamiglietti"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_HankCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_HankCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_HollyHereditary"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_HollyHereditary"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_IsaacBrown"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_IsaacBrown"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_IsScreeningEligible_false_ActiveCRC"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_IsScreeningEligible_false_ActiveCRC"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_IsScreeningEligible_false_HxTotalColectomy"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_IsScreeningEligible_false_HxTotalColectomy"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_IsScreeningEligible_false_Symptomatic"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_IsScreeningEligible_false_Symptomatic"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_IsScreeningEligible_true"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_IsScreeningEligible_true"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_PaulinePolyanski"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_PaulinePolyanski"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_PollyStuart"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_PollyStuart"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_SallySimpson"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_SallySimpson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/PrimaryScreeningDecision_StellaParker"
+        },
+        "exampleBoolean": false,
+        "name": "PrimaryScreeningDecision_StellaParker"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/recommendation-flag-code-system"
+        },
+        "name": "Recommendation Flag Code System",
+        "description": "Code representing due/overdue flags",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/recommendation-flag-codes"
+        },
+        "name": "Recommendation Flag Codes",
+        "description": "This value set includes flag codes for recommendation actions within this implementation guide.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Bundle/SallySimpson"
+        },
+        "exampleBoolean": false,
+        "name": "SallySimpson"
+      },
+      {
+        "reference": {
+          "reference": "Measure/ScreeningDueMeasure"
+        },
+        "name": "Screening Due Measure",
+        "description": "Identifies patients who may be due for screening based on prior assessment and documentation of next due date and flags patient who may be overdue for potential enhanced outreach efforts.\n\nIntended for use with either individual patient alerts, within the context of a clinical encounter or outside an encounter, or for generating asynchronous reports on a cohort/panel of patients in order to target outreach or escalation.",
+        "exampleBoolean": false,
+        "groupingId": "ScreeningDue"
+      },
+      {
+        "reference": {
+          "reference": "PlanDefinition/flow-ScreeningEligible"
+        },
+        "name": "Screening Eligible",
+        "description": "Determines whether colorectal cancer screening is viable or appropriate for a patient, regardless of risk level.\n\nThis path can be used to ensure any clinical decision support tools do not provide recommendations when screening is not appropriate or clinically applicable.",
+        "exampleBoolean": false,
+        "groupingId": "ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Questionnaire/ScreeningEligibleQuestionnaire"
+        },
+        "name": "Screening Eligible",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ActivityDefinition/ScreeningEligibleQuestionnaireTask"
+        },
+        "name": "Screening Eligible Questionnaire Task",
+        "description": "This ActivityDefinition generates a Questionnaire Task containing a request to complete a questionnaire.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Measure/ScreeningIncompleteMeasure"
+        },
+        "name": "Screening Incomplete Measure",
+        "description": "Identifies patients who have been ordered for screening or for follow-up study for abnormal screening but for whom a study report has not been received or documented as received.\n\nIntended for use with either individual patient alerts, within the context of a clinical encounter or outside an encounter, or for generating asynchronous reports on a cohort/panel of patients in order to target outreach or escalation.",
+        "exampleBoolean": false,
+        "groupingId": "Screening Incomplete"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/screening-observation-code-system"
+        },
+        "name": "Screening Observation Code System",
+        "description": "Code representing cancer screening related observations",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningDue"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "ScreeningDue",
+        "groupingId": "ScreeningDue"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningDueActions"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningDueActions",
+        "groupingId": "ScreeningDue"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningDueEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "ScreeningDueEvents",
+        "groupingId": "ScreeningDue"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningEligible"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "ScreeningEligible",
+        "groupingId": "ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningEligibleActions"
+        },
+        "description": "CQL library for logic path output/actions.",
+        "exampleBoolean": false,
+        "name": "ScreeningEligibleActions",
+        "groupingId": "ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningEligibleEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "ScreeningEligibleEvents",
+        "groupingId": "ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_ColinCarlson"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_ColinCarlson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_no_act-ScreeningEligible"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_no_act-ScreeningEligible"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_yes_act-Diagnostic"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_no_eve-Symptomatic_yes_act-Diagnostic"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_eve-HxTotalColectomy_no_eve-ActiveCRC_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_eve-HxTotalColectomy_yes_end-1"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_eve-HxTotalColectomy_yes_end-1"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_inc-AgeAtLeast18_error"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_inc-AgeAtLeast18_error"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_inc-AgeAtLeast18_MostRecentAgeValue_yes"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_inc-AgeAtLeast18_MostRecentAgeValue_yes"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_inc-AgeAtLeast18_no"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_inc-AgeAtLeast18_no"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_inc-AgeAtLeast18_yes"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_inc-AgeAtLeast18_yes"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/ScreeningEligible_SallySimpson"
+        },
+        "exampleBoolean": false,
+        "name": "ScreeningEligible_SallySimpson"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningIncomplete"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "ScreeningIncomplete",
+        "groupingId": "Screening Incomplete"
+      },
+      {
+        "reference": {
+          "reference": "Library/ScreeningIncompleteEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "ScreeningIncompleteEvents",
+        "groupingId": "Screening Incomplete"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/StellaParker"
+        },
+        "exampleBoolean": false,
+        "name": "StellaParker"
+      },
+      {
+        "reference": {
+          "reference": "Library/Terminology"
+        },
+        "exampleBoolean": false,
+        "name": "Terminology"
+      },
+      {
+        "reference": {
+          "reference": "Library/USPSTFAvgRisk"
+        },
+        "description": "Main CQL library",
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRisk",
+        "groupingId": "USPSTFAvgRisk"
+      },
+      {
+        "reference": {
+          "reference": "Library/USPSTFAvgRiskActions"
+        },
+        "description": "CQL library for logic path output/actions.",
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRiskActions",
+        "groupingId": "USPSTFAvgRisk"
+      },
+      {
+        "reference": {
+          "reference": "Library/USPSTFAvgRiskEvents"
+        },
+        "description": "CQL library for logic path decision points.",
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRiskEvents",
+        "groupingId": "USPSTFAvgRisk"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/USPSTFAvgRisk_AgeOver45_yes_eve-priorScreeningExists_no_act-updateDueDateNow"
+        },
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRisk_AgeOver45_yes_eve-priorScreeningExists_no_act-updateDueDateNow"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/USPSTFAvgRisk_eve-AgeOver45_no_act-RecommendStartScreeningAt45"
+        },
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRisk_eve-AgeOver45_no_act-RecommendStartScreeningAt45"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/USPSTFAvgRisk_eve-AgeOver45_yes_eve-priorScreeningExists_yes_act-determineDueDate"
+        },
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRisk_eve-AgeOver45_yes_eve-priorScreeningExists_yes_act-determineDueDate"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/USPSTFAvgRisk_StellaParker"
+        },
+        "exampleBoolean": false,
+        "name": "USPSTFAvgRisk_StellaParker"
+      }
+    ],
+    "page": {
+      "nameUrl": "toc.html",
+      "title": "Table of Contents",
+      "generation": "html",
+      "page": [
+        {
+          "nameUrl": "index.html",
+          "title": "Home",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "2_background.html",
+          "title": "Background",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "3_specification.html",
+          "title": "Specification",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "4_examples.html",
+          "title": "Examples",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "5_downloads.html",
+          "title": "Downloads",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "terminology.html",
+          "title": "Terminology",
+          "generation": "markdown"
+        }
+      ]
+    },
+    "parameter": [
+      {
+        "code": "copyrightyear",
+        "value": "2025+"
+      },
+      {
+        "code": "releaselabel",
+        "value": "ci-build"
+      },
+      {
+        "code": "path-liquid",
+        "value": "templates/liquid"
+      },
+      {
+        "code": "path-binary",
+        "value": "input/cql"
+      },
+      {
+        "code": "path-resource",
+        "value": "input/vocabulary/codesystem"
+      },
+      {
+        "code": "path-resource",
+        "value": "input/vocabulary/valueset"
+      },
+      {
+        "code": "path-resource",
+        "value": "input/resources/library"
+      },
+      {
+        "code": "path-resource",
+        "value": "input/resources/questionnaire"
+      },
+      {
+        "code": "path-resource",
+        "value": "input/examples/*"
+      }
+    ]
+  }
+}

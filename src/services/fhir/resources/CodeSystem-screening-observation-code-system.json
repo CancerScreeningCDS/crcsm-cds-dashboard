@@ -1,0 +1,22 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "ScreeningObservationCodeSystem",
+  "id": "screening-observation-code-system",
+  "title": "Screening Observation Code System",
+  "description": "Code representing cancer screening related observations",
+  "url": "http://cancerscreeningcds.github.io/crcsm-cds/CodeSystem/screening-observation-code-system",
+  "concept": [
+    {
+      "code": "ColorectalSymptoms",
+      "display": "New or worsening colorectal symptoms"
+    },
+    {
+      "code": "ReducedLifeExpectancyIndicator",
+      "display": "Reduced life expectancy indicator"
+    }
+  ],
+  "experimental": true,
+  "count": 2
+}
