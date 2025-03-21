@@ -55,17 +55,17 @@ export function TestPatientSelector() {
             <tr className="group">
               <td colSpan="6">Increased Risk Exclusions</td>
             </tr>
-            { increasedRiskData.map((rd,idx) => <IndexRow key={idx} index={increasedRiskPad+idx} rowData={rd} library="IncreasedRiskExclusions" />) }
+            { increasedRiskData.map((rd,idx) => <IndexRow key={idx} index={increasedRiskPad+idx} rowData={rd} library="flow-IncreasedRiskExclusions" />) }
 
             <tr className="group">
               <td colSpan="6">Follow-Up Flow</td>
             </tr>
-            { followUpData.map((rd,idx) => <IndexRow key={idx} index={followUpPad+idx} rowData={rd} library="FollowUp" />) }
+            { followUpData.map((rd,idx) => <IndexRow key={idx} index={followUpPad+idx} rowData={rd} library="flow-FollowUp" />) }
   
              <tr className="group">
               <td colSpan="6">USPSTF Average Risk</td>
             </tr>
-            { USPSTFAvgRiskData.map((rd,idx) => <IndexRow key={idx} index={USPSTFAvgRiskPad+idx} rowData={rd} library="USPSTFAvgRisk" />) }
+            { USPSTFAvgRiskData.map((rd,idx) => <IndexRow key={idx} index={USPSTFAvgRiskPad+idx} rowData={rd} library="flow-USPSTFAvgRisk" />) }
 
           </tbody>
         </Table>
