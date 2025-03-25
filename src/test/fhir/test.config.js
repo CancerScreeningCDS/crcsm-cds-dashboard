@@ -84,7 +84,7 @@ export const config = {
               display: 'Condition'
             },
             {
-              key: 'state',
+              key: 'value',
               display: 'Status'
             },
             {
