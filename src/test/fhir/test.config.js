@@ -58,10 +58,10 @@ export const config = {
             {
               key: 'value',
               display: 'Result',
-              detailKey: 'longValue'
+              detailKey: 'value'
             },            
             {
-              key: 'age',
+              key: 'onset',
               display: 'Age at Diagnosis'
             },
             {

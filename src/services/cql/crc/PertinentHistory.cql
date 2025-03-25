@@ -348,7 +348,16 @@ define function FormatReports(DrList List<DiagnosticReport>, ObsList List<Observ
   return {
     name: ReportType,
     longName: Common.ConceptText(D.code),
-    value: CollatedCodes, //TODO: what to return for report value??
+    value: First(flatten(
+      (CollatedCodes) cC
+        return (cC.coding) cCC
+          return cCC.display
+    )),
+    longValue: flatten(
+      (CollatedCodes) cC
+        return (cC.coding) cCC
+          return cCC.display
+    ),
     date: Common.DiagnosticReportDateString(D),
     reference: 'DiagnosticReport/' + D.id,
     edited: HasBeenLocallyEdited(D)
