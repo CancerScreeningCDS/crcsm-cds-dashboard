@@ -1,0 +1,13 @@
+diff --git a/node_modules/encender/src/main.js b/node_modules/encender/src/main.js
+index 7946308..16d3af4 100644
+--- a/node_modules/encender/src/main.js
++++ b/node_modules/encender/src/main.js
+@@ -100,7 +100,7 @@ const  executeCQL = async (libContainer=null, patientReference=null, resolver=nu
+       if(messageListener && tx.messages){
+         accumulateMessages(messageListener, tx.messages);
+       }   
+-      return tx.result;
++      return tx;
+     }
+   } catch (e) {
+     throw e;
